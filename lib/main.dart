@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_4_college/cubit/collage_cubit_cubit.dart';
 import 'package:task_4_college/my_home_page_1.dart';
-import 'package:task_4_college/my_home_page_2.dart';
+import 'package:task_4_college/zoom.dart';
 
 void main() {
   BlocOverrides.runZoned(
@@ -73,18 +73,29 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                   ),
                 );
               },
-              child: const Text('Static'),
+              child: const Text('Dynamic Grid'),
             ),
+            // TextButton(
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => const MyHomePage2(),
+            //       ),
+            //     );
+            //   },
+            //   child: const Text('Dynamic Grid'),
+            // ),
             TextButton(
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const MyHomePage2(),
+                    builder: (context) => const ZoomExample(),
                   ),
                 );
               },
-              child: const Text('Dynamic'),
+              child: const Text('Zoom'),
             ),
           ],
         ),
