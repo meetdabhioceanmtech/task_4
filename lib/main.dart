@@ -77,6 +77,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
             //   child: const Text('Dynamic Grid'),
             // ),
             TextButton(
+              style: const ButtonStyle(splashFactory: NoSplash.splashFactory),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -88,6 +89,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
               child: const Text('Task 2 (Image Zoom)'),
             ),
             TextButton(
+              style: const ButtonStyle(splashFactory: NoSplash.splashFactory),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -99,6 +101,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
               child: const Text('Task 3 (Dynamic Grid Template)'),
             ),
             TextButton(
+              style: const ButtonStyle(splashFactory: NoSplash.splashFactory),
               onPressed: () {
                 Navigator.push(
                   context,
