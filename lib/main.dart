@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:task_4_college/alignment.dart';
 import 'package:task_4_college/cubit/collage_cubit_cubit.dart';
 import 'package:task_4_college/my_home_page_1.dart';
 import 'package:task_4_college/zoom.dart';
@@ -96,6 +97,17 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                 );
               },
               child: const Text('Zoom'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AlignmentTask5(),
+                  ),
+                );
+              },
+              child: const Text('Task 5'),
             ),
           ],
         ),
