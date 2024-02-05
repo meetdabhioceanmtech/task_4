@@ -65,17 +65,6 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const MyHomePage1(),
-                  ),
-                );
-              },
-              child: const Text('Dynamic Grid'),
-            ),
             // TextButton(
             //   onPressed: () {
             //     Navigator.push(
@@ -96,7 +85,18 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                   ),
                 );
               },
-              child: const Text('Zoom'),
+              child: const Text('Task 2 (Image Zoom)'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MyHomePage1(),
+                  ),
+                );
+              },
+              child: const Text('Task 3 (Dynamic Grid Template)'),
             ),
             TextButton(
               onPressed: () {
@@ -107,7 +107,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                   ),
                 );
               },
-              child: const Text('Task 5'),
+              child: const Text('Task 5 (Element Alignment)'),
             ),
           ],
         ),

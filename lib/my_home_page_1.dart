@@ -32,7 +32,7 @@ class MyHomePage1State extends State<MyHomePage1> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Static Image Collage"),
+        title: const Text("Image Collage"),
       ),
       body: BlocBuilder<CollageCubit, CollageCubitState>(
         bloc: collageCubit,
