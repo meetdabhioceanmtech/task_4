@@ -12,14 +12,21 @@ class _AlignmentTask5State extends State<AlignmentTask5> {
   final List<double> _imageScales = [1.0, 1.0];
   final List<double> _imageSizes = [100.0, 150.0];
   final int alignmentThreshold = 2; // Adjust the threshold as needed
-  double _horizontalLineY = 0;
-  double _verticalLineX = 0;
+  double _horizontalHighlightLineY = 0;
+  double _verticalHighlightLineX = 0;
+  double _lineLeft = 0;
+  double _lineRight = 0;
+  double _lineTop = 0;
+  double _lineBottom = 0;
+
   bool isShow = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Element Alignment'),
+      ),
       body: Container(
         color: Colors.grey.withOpacity(0.3),
         child: Center(
@@ -30,17 +37,26 @@ class _AlignmentTask5State extends State<AlignmentTask5> {
               child: Stack(
                 children: [
                   Container(color: Colors.white),
-                  // CustomPaint(
-                  //   painter: DottedLinePainter(_horizontalLineY, _verticalLineX),
-                  // ),
                   Visibility(
                     visible: isShow,
                     child: CustomPaint(
-                      painter: DottedLinePainter(_horizontalLineY, _verticalLineX),
+                      painter: HighlightDottedLinePainter(
+                          horizontalLineY: _horizontalHighlightLineY, verticalLineX: _verticalHighlightLineX),
                       size: const Size(double.infinity, double.infinity), // Set a large size
                     ),
                   ),
-
+                  Visibility(
+                    visible: isShow,
+                    child: CustomPaint(
+                      painter: DottedLinePainter(
+                        lineBottom: _lineBottom,
+                        lineLeft: _lineLeft,
+                        lineRight: _lineRight,
+                        lineTop: _lineTop,
+                      ),
+                      size: const Size(double.infinity, double.infinity), // Set a large size
+                    ),
+                  ),
                   for (int i = 0; i < _positions.length; i++)
                     Positioned(
                       left: _positions[i].dx,
@@ -76,7 +92,7 @@ class _AlignmentTask5State extends State<AlignmentTask5> {
                         },
                         onScaleEnd: (details) {
                           _imageScales[i] = 1.0;
-                          // isShow = false;
+                          isShow = false;
                           setState(() {});
                         },
                         child: Transform.scale(
@@ -104,8 +120,21 @@ class _AlignmentTask5State extends State<AlignmentTask5> {
   void _showAlignmentLines(int currentIndex) {
     isShow = true;
 
-    _horizontalLineY = 0;
-    _verticalLineX = 0;
+    _horizontalHighlightLineY = 0;
+    _verticalHighlightLineX = 0;
+
+    double currentXcenter = _positions[currentIndex].dx + _imageSizes[currentIndex] / 2;
+    double currentXright = _positions[currentIndex].dx + _imageSizes[currentIndex];
+    double currentXleft = _positions[currentIndex].dx;
+
+    double currentYcenter = _positions[currentIndex].dy + _imageSizes[currentIndex] / 2;
+    double currentYbottom = _positions[currentIndex].dy + _imageSizes[currentIndex];
+    double currentYtop = _positions[currentIndex].dy;
+
+    _lineLeft = currentXleft;
+    _lineRight = currentXright;
+    _lineTop = currentYtop;
+    _lineBottom = currentYbottom;
 
     for (int i = 0; i < _positions.length; i++) {
       if (i != currentIndex) {
@@ -114,28 +143,20 @@ class _AlignmentTask5State extends State<AlignmentTask5> {
         double targetXright = _positions[i].dx + _imageSizes[i];
         double targetXleft = _positions[i].dx;
 
-        double currentXcenter = _positions[currentIndex].dx + _imageSizes[currentIndex] / 2;
-        double currentXbottom = _positions[currentIndex].dx + _imageSizes[currentIndex];
-        double currentXtop = _positions[currentIndex].dx;
-
-        updateAlignment(current: currentXtop, target: targetXleft);
-        updateAlignment(current: currentXtop, target: targetXcenter);
-        updateAlignment(current: currentXtop, target: targetXright);
+        updateAlignment(current: currentXleft, target: targetXleft);
+        updateAlignment(current: currentXleft, target: targetXcenter);
+        updateAlignment(current: currentXleft, target: targetXright);
         updateAlignment(current: currentXcenter, target: targetXleft);
         updateAlignment(current: currentXcenter, target: targetXcenter);
         updateAlignment(current: currentXcenter, target: targetXright);
-        updateAlignment(current: currentXbottom, target: targetXleft);
-        updateAlignment(current: currentXbottom, target: targetXcenter);
-        updateAlignment(current: currentXbottom, target: targetXright);
+        updateAlignment(current: currentXright, target: targetXleft);
+        updateAlignment(current: currentXright, target: targetXcenter);
+        updateAlignment(current: currentXright, target: targetXright);
 
         // Horizontal
         double targetYcenter = _positions[i].dy + _imageSizes[i] / 2;
         double targetYbottom = _positions[i].dy + _imageSizes[i];
         double targetYtop = _positions[i].dy;
-
-        double currentYcenter = _positions[currentIndex].dy + _imageSizes[currentIndex] / 2;
-        double currentYbottom = _positions[currentIndex].dy + _imageSizes[currentIndex];
-        double currentYtop = _positions[currentIndex].dy;
 
         updateAlignment(current: currentYtop, target: targetYtop, vertical: true);
         updateAlignment(current: currentYtop, target: targetYcenter, vertical: true);
@@ -155,19 +176,22 @@ class _AlignmentTask5State extends State<AlignmentTask5> {
     if (target.toInt() >= current.toInt() - alignmentThreshold &&
         target.toInt() <= current.toInt() + alignmentThreshold) {
       if (vertical) {
-        _horizontalLineY = current;
+        _horizontalHighlightLineY = current;
       } else {
-        _verticalLineX = current;
+        _verticalHighlightLineX = current;
       }
     }
   }
 }
 
-class DottedLinePainter extends CustomPainter {
+class HighlightDottedLinePainter extends CustomPainter {
   final double horizontalLineY;
   final double verticalLineX;
 
-  DottedLinePainter(this.horizontalLineY, this.verticalLineX);
+  HighlightDottedLinePainter({
+    required this.horizontalLineY,
+    required this.verticalLineX,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -192,6 +216,65 @@ class DottedLinePainter extends CustomPainter {
       double currentY = 0;
       while (currentY < size.height) {
         canvas.drawLine(Offset(verticalLineX, currentY), Offset(verticalLineX, currentY + dashWidth), paint);
+        currentY += dashWidth + dashSpace;
+      }
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+}
+
+class DottedLinePainter extends CustomPainter {
+  final double lineLeft;
+  final double lineRight;
+  final double lineTop;
+  final double lineBottom;
+  DottedLinePainter({
+    required this.lineLeft,
+    required this.lineRight,
+    required this.lineBottom,
+    required this.lineTop,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint paint = Paint()
+      ..color = Colors.grey.withOpacity(0.3)
+      ..strokeWidth = 2
+      ..strokeCap = StrokeCap.round
+      ..style = PaintingStyle.stroke;
+
+    const double dashWidth = 5;
+    const double dashSpace = 7;
+    if (lineTop > 0) {
+      double currentX = 0;
+      while (currentX < size.width) {
+        canvas.drawLine(Offset(currentX, lineTop), Offset(currentX + dashWidth, lineTop), paint);
+        currentX += dashWidth + dashSpace;
+      }
+    }
+    if (lineBottom > 0) {
+      double currentX = 0;
+      while (currentX < size.width) {
+        canvas.drawLine(Offset(currentX, lineBottom), Offset(currentX + dashWidth, lineBottom), paint);
+        currentX += dashWidth + dashSpace;
+      }
+    }
+
+    if (lineLeft > 0) {
+      double currentY = 0;
+      while (currentY < size.height) {
+        canvas.drawLine(Offset(lineLeft, currentY), Offset(lineLeft, currentY + dashWidth), paint);
+        currentY += dashWidth + dashSpace;
+      }
+    }
+    if (lineRight > 0) {
+      double currentY = 0;
+      while (currentY < size.height) {
+        canvas.drawLine(Offset(lineRight, currentY), Offset(lineRight, currentY + dashWidth), paint);
         currentY += dashWidth + dashSpace;
       }
     }
