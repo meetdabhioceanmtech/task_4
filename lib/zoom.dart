@@ -12,9 +12,9 @@ class ZoomExample extends StatefulWidget {
 }
 
 class _ZoomExampleState extends State<ZoomExample> {
-  final List<Offset> _positions = [const Offset(0.0, 0.0), const Offset(100.0, 100.0), const Offset(200.0, 200.0)];
-  final List<double> _imageScales = [1.0, 1.0, 1.0];
-  final List<double> _imageSizes = [100.0, 150.0, 200.0];
+  final List<Offset> _positions = [const Offset(0.0, 0.0), const Offset(100.0, 100.0)];
+  final List<double> _imageScales = [1.0, 1.0];
+  final List<double> _imageSizes = [100.0, 150.0];
   ScreenshotController screenshotController = ScreenshotController();
 
   @override
@@ -77,8 +77,8 @@ class _ZoomExampleState extends State<ZoomExample> {
                             child: SizedBox(
                               height: _imageSizes[i],
                               width: _imageSizes[i],
-                              child: Image.network(
-                                'https://img.freepik.com/free-photo/blue-wall-background_53876-88663.jpg?w=740&t=st=1706849199~exp=1706849799~hmac=8d50b1869dcaa518eaadb637f5de92cd0edc1e3ae59d1ee88d9377e258d1b91a',
+                              child: Image.asset(
+                                'assets/image/flat-tropical-summer-background-with-flamingos_23-2149435799.jpg',
                               ),
                             ),
                           ),

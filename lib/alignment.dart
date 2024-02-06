@@ -100,8 +100,8 @@ class _AlignmentTask5State extends State<AlignmentTask5> {
                           child: SizedBox(
                             height: _imageSizes[i],
                             width: _imageSizes[i],
-                            child: Image.network(
-                              'https://img.freepik.com/free-photo/blue-wall-background_53876-88663.jpg?w=740&t=st=1706849199~exp=1706849799~hmac=8d50b1869dcaa518eaadb637f5de92cd0edc1e3ae59d1ee88d9377e258d1b91a',
+                            child: Image.asset(
+                              'assets/image/summer-lettering-with-photo_23-2148520683.jpg',
                               fit: BoxFit.cover,
                             ),
                           ),

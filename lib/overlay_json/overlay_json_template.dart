@@ -20,11 +20,13 @@ class _OverlayJsonTemplateState extends State<OverlayJsonTemplate> {
 
   @override
   void initState() {
-    super.initState();
+    //First time ma load mathi thatu a jovu 
     addJson();
+    super.initState();
+    // Future.delayed(const Duration(microseconds: 500)).then((value) {
+    // });
   }
 
-  Size oriCanvasSize = const Size(1080, 1080);
   addJson() {
     loadJsonAsset('assets/json/first.json');
     loadJsonAsset('assets/json/second.json');
@@ -65,8 +67,16 @@ class _OverlayJsonTemplateState extends State<OverlayJsonTemplate> {
                     Image.network(
                       'https://img.freepik.com/free-photo/blue-wall-background_53876-88663.jpg?w=740&t=st=1706849199~exp=1706849799~hmac=8d50b1869dcaa518eaadb637f5de92cd0edc1e3ae59d1ee88d9377e258d1b91a',
                       fit: BoxFit.cover,
+                      loadingBuilder: (context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      },
                     ),
                     PageView(
+                      allowImplicitScrolling: true,
+                      scrollDirection: Axis.horizontal,
                       children: List.generate(
                         templateList.length,
                         (index) {
