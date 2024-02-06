@@ -11,7 +11,7 @@ class _AlignmentTask5State extends State<AlignmentTask5> {
   final List<Offset> _positions = [const Offset(0.0, 0.0), const Offset(100.0, 100.0)];
   final List<double> _imageScales = [1.0, 1.0];
   final List<double> _imageSizes = [100.0, 150.0];
-  final int alignmentThreshold = 2; // Adjust the threshold as needed
+  final int alignmentThreshold = 2;
   double _horizontalHighlightLineY = 0;
   double _verticalHighlightLineX = 0;
   double _lineLeft = 0;
