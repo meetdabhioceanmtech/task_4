@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_4_college/alignment.dart';
 import 'package:task_4_college/cubit/collage_cubit_cubit.dart';
-import 'package:task_4_college/my_home_page_1.dart';
+import 'package:task_4_college/image_collage.dart';
+import 'package:task_4_college/overlay_json_template.dart';
 import 'package:task_4_college/zoom.dart';
 
 void main() {
@@ -82,6 +83,18 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
+                    builder: (context) => const OverlayJsonTemplate(),
+                  ),
+                );
+              },
+              child: const Text('Task 1 (Overlay json template)'),
+            ),
+            TextButton(
+              style: const ButtonStyle(splashFactory: NoSplash.splashFactory),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
                     builder: (context) => const ZoomExample(),
                   ),
                 );
@@ -94,7 +107,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const MyHomePage1(),
+                    builder: (context) => const ImageCollage(),
                   ),
                 );
               },

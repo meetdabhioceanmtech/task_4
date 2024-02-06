@@ -9,14 +9,14 @@ import 'package:task_4_college/cubit/collage_cubit_cubit.dart';
 import 'package:task_4_college/model/image_model.dart';
 import 'package:task_4_college/snack_bar.dart';
 
-class MyHomePage1 extends StatefulWidget {
-  const MyHomePage1({super.key});
+class ImageCollage extends StatefulWidget {
+  const ImageCollage({super.key});
 
   @override
-  MyHomePage1State createState() => MyHomePage1State();
+  ImageCollageState createState() => ImageCollageState();
 }
 
-class MyHomePage1State extends State<MyHomePage1> with WidgetsBindingObserver {
+class ImageCollageState extends State<ImageCollage> with WidgetsBindingObserver {
   ScreenshotController screenshotController = ScreenshotController();
   late CollageCubit collageCubit;
   @override
