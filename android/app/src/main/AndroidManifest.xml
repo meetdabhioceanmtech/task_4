@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="task_4_college"
+        android:label="Oceanmtech Task"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

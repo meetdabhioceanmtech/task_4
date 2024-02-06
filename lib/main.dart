@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         scaffoldMessengerKey: snackbarKey,
-        title: 'Task: 4',
+        title: 'Oceanmtech Task',
         theme: ThemeData(
           primaryColor: Colors.blue,
           primarySwatch: Colors.blue,
