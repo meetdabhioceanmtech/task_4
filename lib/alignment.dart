@@ -118,34 +118,46 @@ class _AlignmentTask5State extends State<AlignmentTask5> {
         double currentXbottom = _positions[currentIndex].dx + _imageSizes[currentIndex];
         double currentXtop = _positions[currentIndex].dx;
 
-        if (targetXcenter.toInt() >= currentXcenter.toInt() - 2 &&
-            targetXcenter.toInt() <= currentXcenter.toInt() + 2) {
-          _verticalLineX = currentXcenter;
-        }
-        if (targetXright.toInt() >= currentXcenter.toInt() - 2 && targetXright.toInt() <= currentXcenter.toInt() + 2) {
-          _verticalLineX = currentXcenter;
-        }
-        if (targetXleft.toInt() >= currentXcenter.toInt() - 2 && targetXleft.toInt() <= currentXcenter.toInt() + 2) {
-          _verticalLineX = currentXcenter;
-        }
-        if (targetXcenter.toInt() >= currentXbottom.toInt() - 2 &&
-            targetXcenter.toInt() <= currentXbottom.toInt() + 2) {
-          _verticalLineX = currentXbottom;
-        }
-        if (targetXright.toInt() >= currentXbottom.toInt() - 2 && targetXright.toInt() <= currentXbottom.toInt() + 2) {
-          _verticalLineX = currentXbottom;
-        }
-        if (targetXleft.toInt() >= currentXbottom.toInt() - 2 && targetXleft.toInt() <= currentXbottom.toInt() + 2) {
-          _verticalLineX = currentXbottom;
-        }
-        if (targetXcenter.toInt() >= currentXtop.toInt() - 2 && targetXcenter.toInt() <= currentXtop.toInt() + 2) {
+        //Top
+        if (targetXcenter.toInt() >= currentXtop.toInt() - alignmentThreshold &&
+            targetXcenter.toInt() <= currentXtop.toInt() + alignmentThreshold) {
           _verticalLineX = currentXtop;
         }
-        if (targetXright.toInt() >= currentXtop.toInt() - 2 && targetXright.toInt() <= currentXtop.toInt() + 2) {
+        if (targetXright.toInt() >= currentXtop.toInt() - alignmentThreshold &&
+            targetXright.toInt() <= currentXtop.toInt() + alignmentThreshold) {
           _verticalLineX = currentXtop;
         }
-        if (targetXleft.toInt() >= currentXtop.toInt() - 2 && targetXleft.toInt() <= currentXtop.toInt() + 2) {
+        if (targetXleft.toInt() >= currentXtop.toInt() - alignmentThreshold &&
+            targetXleft.toInt() <= currentXtop.toInt() + alignmentThreshold) {
           _verticalLineX = currentXtop;
+        }
+
+        //Center
+        if (targetXcenter.toInt() >= currentXcenter.toInt() - alignmentThreshold &&
+            targetXcenter.toInt() <= currentXcenter.toInt() + alignmentThreshold) {
+          _verticalLineX = currentXcenter;
+        }
+        if (targetXright.toInt() >= currentXcenter.toInt() - alignmentThreshold &&
+            targetXright.toInt() <= currentXcenter.toInt() + alignmentThreshold) {
+          _verticalLineX = currentXcenter;
+        }
+        if (targetXleft.toInt() >= currentXcenter.toInt() - alignmentThreshold &&
+            targetXleft.toInt() <= currentXcenter.toInt() + alignmentThreshold) {
+          _verticalLineX = currentXcenter;
+        }
+
+        //Bottom
+        if (targetXcenter.toInt() >= currentXbottom.toInt() - alignmentThreshold &&
+            targetXcenter.toInt() <= currentXbottom.toInt() + alignmentThreshold) {
+          _verticalLineX = currentXbottom;
+        }
+        if (targetXright.toInt() >= currentXbottom.toInt() - alignmentThreshold &&
+            targetXright.toInt() <= currentXbottom.toInt() + alignmentThreshold) {
+          _verticalLineX = currentXbottom;
+        }
+        if (targetXleft.toInt() >= currentXbottom.toInt() - alignmentThreshold &&
+            targetXleft.toInt() <= currentXbottom.toInt() + alignmentThreshold) {
+          _verticalLineX = currentXbottom;
         }
 
         // Horizontal
@@ -158,39 +170,44 @@ class _AlignmentTask5State extends State<AlignmentTask5> {
         double currentYtop = _positions[currentIndex].dy;
 
         //TOP
-        if (targetYtop.toInt() >= currentYcenter.toInt() - 2 && targetYtop.toInt() <= currentYcenter.toInt() + 2) {
+        if (targetYtop.toInt() >= currentYcenter.toInt() - alignmentThreshold &&
+            targetYtop.toInt() <= currentYcenter.toInt() + alignmentThreshold) {
           _horizontalLineY = currentYcenter;
         }
-        if (targetYtop.toInt() >= currentYtop.toInt() - 2 && targetYtop.toInt() <= currentYtop.toInt() + 2) {
+        if (targetYtop.toInt() >= currentYtop.toInt() - alignmentThreshold &&
+            targetYtop.toInt() <= currentYtop.toInt() + alignmentThreshold) {
           _horizontalLineY = currentYtop;
         }
-        if (targetYtop.toInt() >= currentYbottom.toInt() - 2 && targetYtop.toInt() <= currentYbottom.toInt() + 2) {
+        if (targetYtop.toInt() >= currentYbottom.toInt() - alignmentThreshold &&
+            targetYtop.toInt() <= currentYbottom.toInt() + alignmentThreshold) {
           _horizontalLineY = currentYbottom;
         }
 
         //Center
-        if (targetYcenter.toInt() >= currentYcenter.toInt() - 2 &&
-            targetYcenter.toInt() <= currentYcenter.toInt() + 2) {
+        if (targetYcenter.toInt() >= currentYcenter.toInt() - alignmentThreshold &&
+            targetYcenter.toInt() <= currentYcenter.toInt() + alignmentThreshold) {
           _horizontalLineY = currentYcenter;
         }
-        if (targetYcenter.toInt() >= currentYtop.toInt() - 2 && targetYcenter.toInt() <= currentYtop.toInt() + 2) {
+        if (targetYcenter.toInt() >= currentYtop.toInt() - alignmentThreshold &&
+            targetYcenter.toInt() <= currentYtop.toInt() + alignmentThreshold) {
           _horizontalLineY = currentYtop;
         }
-        if (targetYcenter.toInt() >= currentYbottom.toInt() - 2 &&
-            targetYcenter.toInt() <= currentYbottom.toInt() + 2) {
+        if (targetYcenter.toInt() >= currentYbottom.toInt() - alignmentThreshold &&
+            targetYcenter.toInt() <= currentYbottom.toInt() + alignmentThreshold) {
           _horizontalLineY = currentYbottom;
         }
 
         //Bottom
-        if (targetYbottom.toInt() >= currentYcenter.toInt() - 2 &&
-            targetYbottom.toInt() <= currentYcenter.toInt() + 2) {
+        if (targetYbottom.toInt() >= currentYcenter.toInt() - alignmentThreshold &&
+            targetYbottom.toInt() <= currentYcenter.toInt() + alignmentThreshold) {
           _horizontalLineY = currentYcenter;
         }
-        if (targetYbottom.toInt() >= currentYtop.toInt() - 2 && targetYbottom.toInt() <= currentYtop.toInt() + 2) {
+        if (targetYbottom.toInt() >= currentYtop.toInt() - alignmentThreshold &&
+            targetYbottom.toInt() <= currentYtop.toInt() + alignmentThreshold) {
           _horizontalLineY = currentYtop;
         }
-        if (targetYbottom.toInt() >= currentYbottom.toInt() - 2 &&
-            targetYbottom.toInt() <= currentYbottom.toInt() + 2) {
+        if (targetYbottom.toInt() >= currentYbottom.toInt() - alignmentThreshold &&
+            targetYbottom.toInt() <= currentYbottom.toInt() + alignmentThreshold) {
           _horizontalLineY = currentYbottom;
         }
 
