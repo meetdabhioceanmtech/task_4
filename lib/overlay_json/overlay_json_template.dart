@@ -20,11 +20,8 @@ class _OverlayJsonTemplateState extends State<OverlayJsonTemplate> {
 
   @override
   void initState() {
-    //First time ma load mathi thatu a jovu 
-    addJson();
     super.initState();
-    // Future.delayed(const Duration(microseconds: 500)).then((value) {
-    // });
+    addJson();
   }
 
   addJson() {
@@ -32,7 +29,6 @@ class _OverlayJsonTemplateState extends State<OverlayJsonTemplate> {
     loadJsonAsset('assets/json/second.json');
     loadJsonAsset('assets/json/3.json');
     loadJsonAsset('assets/json/4.json');
-    setState(() {});
   }
 
   Future<void> loadJsonAsset(String assetPath) async {
@@ -40,6 +36,7 @@ class _OverlayJsonTemplateState extends State<OverlayJsonTemplate> {
       String jsonString = await rootBundle.loadString(assetPath);
       Map<String, dynamic> jsonData = jsonDecode(jsonString);
       templateList.add(SectorModel.fromJson(jsonData));
+      setState(() {});
     } catch (e) {
       debugPrint('Error loading asset $assetPath: $e');
     }
