@@ -4,8 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:task_4_college/overlay_json/model/overlay_json_model.dart';
-import 'package:task_4_college/snack_bar.dart';
+import 'package:task_4_college/model/overlay_json_model.dart';
+import 'package:task_4_college/utils/snack_bar.dart';
 
 class OverlayJsonTemplate extends StatefulWidget {
   const OverlayJsonTemplate({super.key});

@@ -2,7 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:task_4_college/snack_bar.dart';
+import 'package:task_4_college/utils/snack_bar.dart';
 
 class ZoomExample extends StatefulWidget {
   const ZoomExample({Key? key}) : super(key: key);

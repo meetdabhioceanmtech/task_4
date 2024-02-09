@@ -7,7 +7,7 @@ import 'package:screenshot/screenshot.dart';
 import 'package:task_4_college/collage/collage_show.dart';
 import 'package:task_4_college/cubit/collage_cubit_cubit.dart';
 import 'package:task_4_college/model/image_model.dart';
-import 'package:task_4_college/snack_bar.dart';
+import 'package:task_4_college/utils/snack_bar.dart';
 
 class ImageCollage extends StatefulWidget {
   const ImageCollage({super.key});

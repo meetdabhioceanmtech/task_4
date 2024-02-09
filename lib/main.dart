@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:task_4_college/alignment.dart';
+import 'package:task_4_college/alignment/alignment.dart';
 import 'package:task_4_college/cubit/collage_cubit_cubit.dart';
-import 'package:task_4_college/image_collage.dart';
+import 'package:task_4_college/collage/image_collage.dart';
 import 'package:task_4_college/overlay_json/overlay_json_template.dart';
-import 'package:task_4_college/zoom.dart';
+import 'package:task_4_college/zoom/zoom.dart';
 
 void main() {
   BlocOverrides.runZoned(
