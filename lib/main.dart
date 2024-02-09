@@ -66,17 +66,6 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // TextButton(
-            //   onPressed: () {
-            //     Navigator.push(
-            //       context,
-            //       MaterialPageRoute(
-            //         builder: (context) => const MyHomePage2(),
-            //       ),
-            //     );
-            //   },
-            //   child: const Text('Dynamic Grid'),
-            // ),
             TextButton(
               style: const ButtonStyle(splashFactory: NoSplash.splashFactory),
               onPressed: () {
