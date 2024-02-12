@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:screenshot/screenshot.dart';
@@ -83,10 +84,10 @@ class _OverlayJsonTemplateState extends State<OverlayJsonTemplate> {
                               if (templateList[index].editorObjects != null)
                                 ...templateList[index].editorObjects!.map(
                                   (editorObject) {
-                                    double left = ((editorObject.left ?? editorObject.centerX ?? 15) / 3) + 17;
-                                    double top = ((editorObject.top ?? editorObject.centerY ?? 15) / 3) + 22.5;
+                                    double left = (((editorObject.left ?? editorObject.centerX ?? 15) / 3) + 3).w;
+                                    double top = (((editorObject.top ?? editorObject.centerY ?? 15) / 3) + 20).h;
                                     double width = (editorObject.width ?? 0) * (editorObject.scaleX ?? 1);
-                                    double height = ((editorObject.height ?? 0) * (editorObject.scaleY ?? 1));
+                                    double height = ((editorObject.height ?? 0) * (editorObject.scaleY ?? 1)).h;
                                     return editorObject.type == 'textbox'
                                         ? Positioned(
                                             left: left,
@@ -107,8 +108,12 @@ class _OverlayJsonTemplateState extends State<OverlayJsonTemplate> {
                                                       (editorObject.fill != null && editorObject.fill!.startsWith('#'))
                                                           ? getTextColor(editorObject.fill!)
                                                           : null,
-                                                  fontSize: (editorObject.fontSize ?? 16) / 3,
-                                                  fontWeight: FontWeight.normal,
+                                                  fontSize: ((editorObject.fontSize ?? 16) / 4).sp,
+                                                  fontWeight: editorObject.fontFamily?.split('-').last == 'Bold'
+                                                      ? FontWeight.w700
+                                                      : editorObject.fontFamily?.split('-').last == 'Semibold'
+                                                          ? FontWeight.normal
+                                                          : FontWeight.w600,
                                                   fontStyle: FontStyle.normal,
                                                 ),
                                               ),
@@ -120,18 +125,18 @@ class _OverlayJsonTemplateState extends State<OverlayJsonTemplate> {
                               if (templateList[index].editorObjects != null)
                                 ...templateList[index].editorObjects!.map(
                                   (editorObject) {
-                                    double top = ((editorObject.centerY ?? editorObject.top ?? 15) / 3) - 15;
-                                    double left = ((editorObject.centerX ?? editorObject.left ?? 15) / 3) - 15;
-                                    double scaleHeight = (editorObject.height ?? 0) * (editorObject.scaleY ?? 1);
-                                    double scaleWidth = (editorObject.width ?? 0) * (editorObject.scaleX ?? 1);
+                                    double top = (((editorObject.centerY ?? editorObject.top ?? 15) / 3) - 22).h;
+                                    double left = (((editorObject.centerX ?? editorObject.left ?? 15) / 3) - 40).w;
+                                    double scaleHeight = ((editorObject.height ?? 0) * (editorObject.scaleY ?? 1)).h;
+                                    double scaleWidth = ((editorObject.width ?? 0) * (editorObject.scaleX ?? 1)).w;
 
                                     return editorObject.type == 'image'
                                         ? Positioned(
                                             left: left,
                                             top: top,
                                             child: Image.memory(
-                                              width: (scaleHeight + 8) / 3,
-                                              height: (scaleWidth + 8) / 3,
+                                              width: ((scaleHeight + 8) / 3).w,
+                                              height: ((scaleWidth + 8) / 3).h,
                                               Uint8List.fromList(
                                                 base64Decode(
                                                   editorObject.src!.split(',').last,

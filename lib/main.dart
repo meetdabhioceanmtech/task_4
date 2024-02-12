@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:task_4_college/alignment/alignment.dart';
 import 'package:task_4_college/cubit/collage_cubit_cubit.dart';
 import 'package:task_4_college/collage/image_collage.dart';
@@ -34,19 +35,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => CollageCubit(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        scaffoldMessengerKey: snackbarKey,
-        title: 'Oceanmtech Task',
-        theme: ThemeData(
-          primaryColor: Colors.blue,
-          primarySwatch: Colors.blue,
-        ),
-        home: const MyHomeScreen(),
-      ),
-    );
+    return ScreenUtilInit(
+        useInheritedMediaQuery: true,
+        designSize: const Size(360, 800),
+        rebuildFactor: (old, data) => RebuildFactors.orientation(old, data),
+        splitScreenMode: true,
+        minTextAdapt: true,
+        builder: (context, snapshot) {
+          return BlocProvider(
+            create: (context) => CollageCubit(),
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              scaffoldMessengerKey: snackbarKey,
+              title: 'Oceanmtech Task',
+              theme: ThemeData(
+                primaryColor: Colors.blue,
+                primarySwatch: Colors.blue,
+              ),
+              home: const MyHomeScreen(),
+            ),
+          );
+        });
   }
 }
 
