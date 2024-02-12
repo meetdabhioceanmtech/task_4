@@ -1,11 +1,16 @@
 import 'dart:io';
+import 'dart:math';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:task_4_college/cubit/collage_cubit_cubit.dart';
 import 'package:task_4_college/model/image_model.dart';
 
 class CollageWidget {
+  double minScale = 1.0; // Default min scale factor
+
   Widget commonCollageShow({
     required BuildContext context,
     bool isDisabled = false,
@@ -38,6 +43,7 @@ class CollageWidget {
                       tiles: tiles,
                       isColorShow: isColorShow,
                       collageCubit: collageCubit,
+                      crossAxisCount: collageData.maincrossAxisCellCount,
                     ),
                   );
                 },
@@ -60,6 +66,7 @@ class CollageWidget {
     required bool isColorShow,
     required CollageCubit collageCubit,
     required CollageTileData tiles,
+    required int crossAxisCount,
   }) {
     return Container(
       color: isColorShow ? state.color : Colors.transparent,
@@ -68,36 +75,54 @@ class CollageWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(3),
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(isDisabled ? 3 : 5)),
-              child: tiles.imagePath != '' && !isDisabled
-                  ? Image.file(
-                      File(tiles.imagePath),
-                      fit: BoxFit.cover,
-                    )
-                  : Container(
-                      color: const Color(0xFFD3D3D3),
-                      child: isDisabled ? null : const Icon(Icons.add),
-                    ),
-            ),
-          ),
-          if (!isDisabled)
-            Positioned.fill(
-              child: Material(
-                borderRadius: const BorderRadius.all(Radius.circular(5)),
-                color: Colors.transparent,
-                child: InkWell(
-                  highlightColor: Colors.transparent,
-                  onTap: () => showImagePickerDialog(
-                    index: index,
-                    context: context,
-                    tiles: tiles,
-                    state: state,
-                    collageCubit: collageCubit,
-                  ),
-                ),
+            child: GestureDetector(
+              onTap: isDisabled
+                  ? null
+                  : () => showImagePickerDialog(
+                        index: index,
+                        context: context,
+                        tiles: tiles,
+                        state: state,
+                        collageCubit: collageCubit,
+                      ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(isDisabled ? 3 : 5)),
+                child: tiles.imagePath != '' && !isDisabled
+                    ? ExtendedImage.file(
+                        File(tiles.imagePath),
+                        fit: BoxFit.fill,
+                        mode: ExtendedImageMode.gesture,
+                        initGestureConfigHandler: (ExtendedImageState state) {
+                          double cellWidth = ScreenUtil().screenWidth / crossAxisCount;
+                          double cellHeight = ScreenUtil().screenHeight / crossAxisCount;
+                          double maxScale = 2.0;
+
+                          if (cellHeight > cellWidth) {
+                            double imageHeight = cellHeight * tiles.crossAxisCellCount / tiles.mainAxisCellCount;
+                            minScale = MediaQuery.of(context).size.height / imageHeight;
+                          } else {
+                            double imageWidth = cellWidth * tiles.crossAxisCellCount / tiles.mainAxisCellCount;
+                            minScale = MediaQuery.of(context).size.width / imageWidth;
+                          }
+
+                          minScale = min(minScale, maxScale);
+                          if (minScale == 1.0) {
+                            minScale = 2;
+                          }
+                          return GestureConfig(
+                            initialScale: minScale,
+                            minScale: minScale,
+                            initialAlignment: InitialAlignment.center,
+                          );
+                        },
+                      )
+                    : Container(
+                        color: const Color(0xFFD3D3D3),
+                        child: isDisabled ? null : const Icon(Icons.add),
+                      ),
               ),
             ),
+          ),
         ],
       ),
     );

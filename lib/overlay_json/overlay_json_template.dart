@@ -127,16 +127,16 @@ class _OverlayJsonTemplateState extends State<OverlayJsonTemplate> {
                                   (editorObject) {
                                     double top = (((editorObject.centerY ?? editorObject.top ?? 15) / 3) - 22).h;
                                     double left = (((editorObject.centerX ?? editorObject.left ?? 15) / 3) - 40).w;
-                                    double scaleHeight = ((editorObject.height ?? 0) * (editorObject.scaleY ?? 1)).h;
-                                    double scaleWidth = ((editorObject.width ?? 0) * (editorObject.scaleX ?? 1)).w;
+                                    double height = ((editorObject.height ?? 0) * (editorObject.scaleY ?? 1)).h;
+                                    double width = ((editorObject.width ?? 0) * (editorObject.scaleX ?? 1)).w;
 
                                     return editorObject.type == 'image'
                                         ? Positioned(
                                             left: left,
                                             top: top,
                                             child: Image.memory(
-                                              width: ((scaleHeight + 8) / 3).w,
-                                              height: ((scaleWidth + 8) / 3).h,
+                                              width: ((height + 8) / 3).w,
+                                              height: ((width + 8) / 3).h,
                                               Uint8List.fromList(
                                                 base64Decode(
                                                   editorObject.src!.split(',').last,
