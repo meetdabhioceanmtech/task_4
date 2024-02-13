@@ -36,15 +36,6 @@ List<Collage> dummyData = [
     ],
   ),
   Collage(
-    id: 2,
-    maincrossAxisCellCount: 2,
-    totalImage: 2,
-    tiles: [
-      CollageTileData(imageId: 1, crossAxisCellCount: 2, mainAxisCellCount: 1, imagePath: ''),
-      CollageTileData(imageId: 2, crossAxisCellCount: 2, mainAxisCellCount: 1, imagePath: ''),
-    ],
-  ),
-  Collage(
     id: 3,
     maincrossAxisCellCount: 2,
     totalImage: 3,

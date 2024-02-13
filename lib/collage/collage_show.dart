@@ -90,7 +90,7 @@ class CollageWidget {
                 child: tiles.imagePath != '' && !isDisabled
                     ? ExtendedImage.file(
                         File(tiles.imagePath),
-                        fit: BoxFit.contain,
+                        // fit: BoxFit.,
                         mode: ExtendedImageMode.gesture,
                         initGestureConfigHandler: (ExtendedImageState state) {
                           double cellWidth = ScreenUtil().screenWidth / crossAxisCount;
