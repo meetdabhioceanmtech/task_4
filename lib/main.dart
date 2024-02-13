@@ -10,25 +10,11 @@ import 'package:task_4_college/overlay_json/overlay_json_template.dart';
 import 'package:task_4_college/zoom/zoom.dart';
 
 void main() {
-  BlocOverrides.runZoned(
-    () => runApp(const MyApp()),
-    blocObserver: AppBlocObserver(),
-  );
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const MyApp());
 }
 
 final GlobalKey<ScaffoldMessengerState> snackbarKey = GlobalKey<ScaffoldMessengerState>();
-
-class AppBlocObserver extends BlocObserver {
-  @override
-  void onChange(BlocBase bloc, Change change) {
-    super.onChange(bloc, change);
-  }
-
-  @override
-  void onTransition(Bloc bloc, Transition transition) {
-    super.onTransition(bloc, transition);
-  }
-}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -37,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
         useInheritedMediaQuery: true,
-        designSize: const Size(360, 800),
+        designSize: const Size(414, 896),
         rebuildFactor: (old, data) => RebuildFactors.orientation(old, data),
         splitScreenMode: true,
         minTextAdapt: true,
