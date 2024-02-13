@@ -84,51 +84,54 @@ class _OverlayJsonTemplateState extends State<OverlayJsonTemplate> {
                                 // width: templateList[index].backgroundImage?.width?.w,
                               ),
                               if (templateList[index].editorObjects?.isNotEmpty == true ||
-                                  templateList[index].editorObjects != null)
-                                ...templateList[index].editorObjects!.map(
-                                  (editorObject) {
-                                    double left = (editorObject.left ?? editorObject.centerX ?? 15) / 2.6 + 2;
-                                    double top = (editorObject.top ?? editorObject.centerY ?? 15) / 2.6 - 1;
-                                    double width = ((editorObject.width ?? 0) * (editorObject.scaleX ?? 1));
-                                    double height = ((editorObject.height ?? 0) * (editorObject.scaleY ?? 1));
-                                    return editorObject.type == 'textbox'
-                                        ? Positioned(
-                                            left: left.w,
-                                            top: top.w,
-                                            child: SizedBox(
-                                              width: width.w,
-                                              height: height.h,
-                                              child: Text(
-                                                editorObject.text ?? '',
-                                                textAlign: (editorObject.textAlign == 'right')
-                                                    ? TextAlign.right
-                                                    : (editorObject.textAlign == 'center')
-                                                        ? TextAlign.center
-                                                        : TextAlign.left,
-                                                style: TextStyle(
-                                                  // style: GoogleFonts.getFont(
-                                                  //   editorObject.fontFamily?.split('-').first == 'null' ||
-                                                  //           editorObject.fontFamily?.split('-').first == ''
-                                                  //       ? 'Poppins'
-                                                  //       : editorObject.fontFamily?.split('-').first ?? 'Poppins',
-                                                  color:
-                                                      (editorObject.fill != null && editorObject.fill!.startsWith('#'))
-                                                          ? getTextColor(editorObject.fill!)
-                                                          : null,
-                                                  fontSize: ((editorObject.fontSize ?? 16) / 3).sp,
-                                                  fontWeight: editorObject.fontFamily?.split('-').last == 'Bold'
-                                                      ? FontWeight.w700
-                                                      : editorObject.fontFamily?.split('-').last == 'Semibold'
-                                                          ? FontWeight.w600
-                                                          : FontWeight.normal,
-                                                  fontStyle: FontStyle.normal,
+                                  templateList[index].editorObjects != null ||
+                                  templateList[index].editorObjects?.isNotEmpty == true)
+                                ...templateList[index].editorObjects?.map(
+                                      (editorObject) {
+                                        double left = (editorObject.left ?? editorObject.centerX ?? 15) / 2.6 + 2;
+                                        double top = (editorObject.top ?? editorObject.centerY ?? 15) / 2.6 - 1;
+                                        double width = ((editorObject.width ?? 0) * (editorObject.scaleX ?? 1));
+                                        double height = ((editorObject.height ?? 0) * (editorObject.scaleY ?? 1));
+                                        return editorObject.type == 'textbox'
+                                            ? Positioned(
+                                                left: left.w,
+                                                top: top.w,
+                                                child: SizedBox(
+                                                  width: width,
+                                                  height: height,
+                                                  child: Text(
+                                                    editorObject.text ?? '',
+                                                    textAlign: (editorObject.textAlign == 'right')
+                                                        ? TextAlign.right
+                                                        : (editorObject.textAlign == 'center')
+                                                            ? TextAlign.center
+                                                            : TextAlign.left,
+                                                    style: TextStyle(
+                                                      // style: GoogleFonts.getFont(
+                                                      //   editorObject.fontFamily?.split('-').first ?? 'Poppins',
+                                                      color: (editorObject.fill == null || editorObject.fill == '')
+                                                          ? const Color(0xFFFFFFFF)
+                                                          : (editorObject.fill?.startsWith('#')) == true
+                                                              ? getTextColor(editorObject.fill!)
+                                                              : editorObject.fill?.startsWith('black') == true
+                                                                  ? Colors.black
+                                                                  : const Color(0xFFFFFFFF),
+                                                      fontSize: double.tryParse(
+                                                              ((editorObject.fontSize ?? 16) / 3).toString()) ??
+                                                          0.sp,
+                                                      fontWeight: editorObject.fontFamily?.split('-').last == 'Bold'
+                                                          ? FontWeight.w700
+                                                          : editorObject.fontFamily?.split('-').last == 'Semibold'
+                                                              ? FontWeight.w600
+                                                              : FontWeight.normal,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                          )
-                                        : const SizedBox.shrink();
-                                  },
-                                ),
+                                              )
+                                            : const SizedBox.shrink();
+                                      },
+                                    ) ??
+                                    [],
                               if (templateList[index].editorObjects != null)
                                 ...templateList[index].editorObjects!.map(
                                   (editorObject) {
@@ -191,13 +194,17 @@ class _OverlayJsonTemplateState extends State<OverlayJsonTemplate> {
   }
 
   Color getTextColor(String color) {
-    var hexColor = color.replaceAll("#", "");
-    if (hexColor.length == 6) {
-      hexColor = "FF$hexColor";
+    try {
+      var hexColor = color.replaceAll("#", "");
+      if (hexColor.length == 6) {
+        return Color(int.tryParse("0xFF$hexColor") ?? 0xFFFFFFFF);
+      }
+      if (hexColor.length == 8) {
+        return Color(int.tryParse("0x$hexColor") ?? 0xFFFFFFFF);
+      }
+      return const Color(0xFFFFFFFF);
+    } catch (e) {
+      return const Color(0xFFFFFFFF);
     }
-    if (hexColor.length == 8) {
-      return Color(int.parse("0x$hexColor"));
-    }
-    return const Color(0xFFFFFFFF);
   }
 }

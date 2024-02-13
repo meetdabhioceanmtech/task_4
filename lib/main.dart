@@ -21,27 +21,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-        useInheritedMediaQuery: true,
-        designSize: const Size(414, 896),
-        rebuildFactor: (old, data) => RebuildFactors.orientation(old, data),
-        splitScreenMode: true,
-        minTextAdapt: true,
-        builder: (context, snapshot) {
-          return BlocProvider(
-            create: (context) => CollageCubit(),
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              scaffoldMessengerKey: snackbarKey,
-              title: 'Oceanmtech Task',
-              theme: ThemeData(
-                primaryColor: Colors.blue,
-                primarySwatch: Colors.blue,
-              ),
-              home: const MyHomeScreen(),
-            ),
-          );
-        });
+    ScreenUtil.init(
+      context,
+      designSize: const Size(414, 896),
+    );
+    return BlocProvider(
+      create: (context) => CollageCubit(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        scaffoldMessengerKey: snackbarKey,
+        title: 'Oceanmtech Task',
+        theme: ThemeData(
+          primaryColor: Colors.blue,
+          primarySwatch: Colors.blue,
+        ),
+        home: const MyHomeScreen(),
+      ),
+    );
   }
 }
 
