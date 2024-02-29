@@ -12,14 +12,15 @@ class _AlignmentTask5State extends State<AlignmentTask5> {
   final List<double> _imageScales = [1.0, 1.0];
   final List<double> _imageSizes = [100.0, 150.0];
   final int alignmentThreshold = 2;
-  double _horizontalHighlightLineY = 0;
-  double _verticalHighlightLineX = 0;
-  double _lineLeft = 0;
-  double _lineRight = 0;
-  double _lineTop = 0;
-  double _lineBottom = 0;
+  double horizontalHighlightLineY = 0;
+  double verticalHighlightLineX = 0;
+  double lineLeft = 0;
+  double lineRight = 0;
+  double lineTop = 0;
+  double lineBottom = 0;
 
   bool isShow = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +42,9 @@ class _AlignmentTask5State extends State<AlignmentTask5> {
                     visible: isShow,
                     child: CustomPaint(
                       painter: HighlightDottedLinePainter(
-                          horizontalLineY: _horizontalHighlightLineY, verticalLineX: _verticalHighlightLineX),
+                        horizontalLineY: horizontalHighlightLineY,
+                        verticalLineX: verticalHighlightLineX,
+                      ),
                       size: const Size(double.infinity, double.infinity), // Set a large size
                     ),
                   ),
@@ -49,10 +52,10 @@ class _AlignmentTask5State extends State<AlignmentTask5> {
                     visible: isShow,
                     child: CustomPaint(
                       painter: DottedLinePainter(
-                        lineBottom: _lineBottom,
-                        lineLeft: _lineLeft,
-                        lineRight: _lineRight,
-                        lineTop: _lineTop,
+                        lineBottom: lineBottom,
+                        lineLeft: lineLeft,
+                        lineRight: lineRight,
+                        lineTop: lineTop,
                       ),
                       size: const Size(double.infinity, double.infinity), // Set a large size
                     ),
@@ -120,8 +123,8 @@ class _AlignmentTask5State extends State<AlignmentTask5> {
   void _showAlignmentLines(int currentIndex) {
     isShow = true;
 
-    _horizontalHighlightLineY = 0;
-    _verticalHighlightLineX = 0;
+    horizontalHighlightLineY = 0;
+    verticalHighlightLineX = 0;
 
     double currentXcenter = _positions[currentIndex].dx + _imageSizes[currentIndex] / 2;
     double currentXright = _positions[currentIndex].dx + _imageSizes[currentIndex];
@@ -131,10 +134,10 @@ class _AlignmentTask5State extends State<AlignmentTask5> {
     double currentYbottom = _positions[currentIndex].dy + _imageSizes[currentIndex];
     double currentYtop = _positions[currentIndex].dy;
 
-    _lineLeft = currentXleft;
-    _lineRight = currentXright;
-    _lineTop = currentYtop;
-    _lineBottom = currentYbottom;
+    lineLeft = currentXleft;
+    lineRight = currentXright;
+    lineTop = currentYtop;
+    lineBottom = currentYbottom;
 
     for (int i = 0; i < _positions.length; i++) {
       if (i != currentIndex) {
@@ -143,43 +146,148 @@ class _AlignmentTask5State extends State<AlignmentTask5> {
         double targetXright = _positions[i].dx + _imageSizes[i];
         double targetXleft = _positions[i].dx;
 
-        updateAlignment(current: currentXleft, target: targetXleft);
-        updateAlignment(current: currentXleft, target: targetXcenter);
-        updateAlignment(current: currentXleft, target: targetXright);
-        updateAlignment(current: currentXcenter, target: targetXleft);
-        updateAlignment(current: currentXcenter, target: targetXcenter);
-        updateAlignment(current: currentXcenter, target: targetXright);
-        updateAlignment(current: currentXright, target: targetXleft);
-        updateAlignment(current: currentXright, target: targetXcenter);
-        updateAlignment(current: currentXright, target: targetXright);
+        updateAlignment(
+          current: currentXleft,
+          target: targetXleft,
+          alignmentThreshold: alignmentThreshold,
+          onDateSelected: (current) => verticalHighlightLineX = current,
+        );
+        updateAlignment(
+          current: currentXleft,
+          target: targetXcenter,
+          alignmentThreshold: alignmentThreshold,
+          onDateSelected: (current) => verticalHighlightLineX = current,
+        );
+        updateAlignment(
+          current: currentXleft,
+          target: targetXright,
+          alignmentThreshold: alignmentThreshold,
+          onDateSelected: (current) => verticalHighlightLineX = current,
+        );
+        updateAlignment(
+          current: currentXcenter,
+          target: targetXleft,
+          alignmentThreshold: alignmentThreshold,
+          onDateSelected: (current) => verticalHighlightLineX = current,
+        );
+        updateAlignment(
+          current: currentXcenter,
+          target: targetXcenter,
+          alignmentThreshold: alignmentThreshold,
+          onDateSelected: (current) => verticalHighlightLineX = current,
+        );
+        updateAlignment(
+          current: currentXcenter,
+          target: targetXright,
+          alignmentThreshold: alignmentThreshold,
+          onDateSelected: (current) => verticalHighlightLineX = current,
+        );
+        updateAlignment(
+          current: currentXright,
+          target: targetXleft,
+          alignmentThreshold: alignmentThreshold,
+          onDateSelected: (current) => verticalHighlightLineX = current,
+        );
+        updateAlignment(
+          current: currentXright,
+          target: targetXcenter,
+          alignmentThreshold: alignmentThreshold,
+          onDateSelected: (current) => verticalHighlightLineX = current,
+        );
+        updateAlignment(
+          current: currentXright,
+          target: targetXright,
+          alignmentThreshold: alignmentThreshold,
+          onDateSelected: (current) => verticalHighlightLineX = current,
+        );
 
         // Horizontal
         double targetYcenter = _positions[i].dy + _imageSizes[i] / 2;
         double targetYbottom = _positions[i].dy + _imageSizes[i];
         double targetYtop = _positions[i].dy;
 
-        updateAlignment(current: currentYtop, target: targetYtop, vertical: true);
-        updateAlignment(current: currentYtop, target: targetYcenter, vertical: true);
-        updateAlignment(current: currentYtop, target: targetYbottom, vertical: true);
-        updateAlignment(current: currentYcenter, target: targetYtop, vertical: true);
-        updateAlignment(current: currentYcenter, target: targetYcenter, vertical: true);
-        updateAlignment(current: currentYcenter, target: targetYbottom, vertical: true);
-        updateAlignment(current: currentYbottom, target: targetYtop, vertical: true);
-        updateAlignment(current: currentYbottom, target: targetYcenter, vertical: true);
-        updateAlignment(current: currentYbottom, target: targetYbottom, vertical: true);
+        updateAlignment(
+          current: currentYtop,
+          target: targetYtop,
+          vertical: true,
+          alignmentThreshold: alignmentThreshold,
+          onDateSelected: (current) => horizontalHighlightLineY = current,
+        );
+        updateAlignment(
+          current: currentYtop,
+          target: targetYcenter,
+          vertical: true,
+          alignmentThreshold: alignmentThreshold,
+          onDateSelected: (current) => horizontalHighlightLineY = current,
+        );
+        updateAlignment(
+          current: currentYtop,
+          target: targetYbottom,
+          vertical: true,
+          alignmentThreshold: alignmentThreshold,
+          onDateSelected: (current) => horizontalHighlightLineY = current,
+        );
+        updateAlignment(
+          current: currentYcenter,
+          target: targetYtop,
+          vertical: true,
+          alignmentThreshold: alignmentThreshold,
+          onDateSelected: (current) => horizontalHighlightLineY = current,
+        );
+        updateAlignment(
+          current: currentYcenter,
+          target: targetYcenter,
+          vertical: true,
+          alignmentThreshold: alignmentThreshold,
+          onDateSelected: (current) => horizontalHighlightLineY = current,
+        );
+        updateAlignment(
+          current: currentYcenter,
+          target: targetYbottom,
+          vertical: true,
+          alignmentThreshold: alignmentThreshold,
+          onDateSelected: (current) => horizontalHighlightLineY = current,
+        );
+        updateAlignment(
+          current: currentYbottom,
+          target: targetYtop,
+          vertical: true,
+          alignmentThreshold: alignmentThreshold,
+          onDateSelected: (current) => horizontalHighlightLineY = current,
+        );
+        updateAlignment(
+          current: currentYbottom,
+          target: targetYcenter,
+          vertical: true,
+          alignmentThreshold: alignmentThreshold,
+          onDateSelected: (current) => horizontalHighlightLineY = current,
+        );
+        updateAlignment(
+          current: currentYbottom,
+          target: targetYbottom,
+          vertical: true,
+          alignmentThreshold: alignmentThreshold,
+          onDateSelected: (current) => horizontalHighlightLineY = current,
+        );
       }
     }
     setState(() {});
   }
+}
 
-  void updateAlignment({required double current, required double target, bool vertical = false}) {
-    if (target.toInt() >= current.toInt() - alignmentThreshold &&
-        target.toInt() <= current.toInt() + alignmentThreshold) {
-      if (vertical) {
-        _horizontalHighlightLineY = current;
-      } else {
-        _verticalHighlightLineX = current;
-      }
+void updateAlignment({
+  required double current,
+  required double target,
+  bool vertical = false,
+  required int alignmentThreshold,
+  required void Function(double) onDateSelected,
+}) {
+  if (target.toInt() >= current.toInt() - alignmentThreshold &&
+      target.toInt() <= current.toInt() + alignmentThreshold) {
+    if (vertical) {
+      onDateSelected(current);
+    } else {
+      onDateSelected(current);
     }
   }
 }
