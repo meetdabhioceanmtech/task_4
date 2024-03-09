@@ -205,11 +205,8 @@ void updateAlignment({
   if (target.toInt() >= current.toInt() - alignmentThreshold &&
       target.toInt() <= current.toInt() + alignmentThreshold) {
     if (vertical) {
-      print('>>>>>>>>>>>>>>> VVVV');
       onDateSelected(current);
     } else {
-      print('>>>>>>>>>>>>>>> HHH');
-
       onDateSelected(current);
     }
   }
@@ -316,3 +313,139 @@ class DottedLinePainter extends CustomPainter {
     return true;
   }
 }
+
+
+/// With Rotate
+
+// void _showAlignmentLines(int currentIndex) {
+//   isAlignmentLineShow = true;
+//   horizontalHighlightLineY = 0;
+//   verticalHighlightLineX = 0;
+
+//   double width = size.width;
+//   double height = size.height;
+
+//   double w1 = width * (cos(angle)) + height * (sin(angle));
+//   double w2 = width * (cos(angle)) - height * (sin(angle));
+//   double h1 = height * (cos(angle)) - width * (sin(angle));
+//   double h2 = height * (cos(angle)) + width * (sin(angle));
+
+//   width = max(w1.abs(), w2.abs());
+//   height = max(h1.abs(), h2.abs());
+
+//   double currentXcenter = position.dx;
+//   double currentXright = position.dx + (width / 2) + 2;
+//   double currentXleft = position.dx - (width / 2) + 6;
+
+//   double currentYcenter = position.dy;
+//   double currentYbottom = position.dy + (height / 2) + 2;
+//   double currentYtop = position.dy - (height / 2) + 6;
+
+//   //vertical
+//   lineLeft = currentXleft;
+//   lineRight = currentXright;
+
+//   // Horizontal
+//   lineTop = currentYtop;
+//   lineBottom = currentYbottom;
+
+//   for (int i = 0; i < widget.state.stickerList.length; i++) {
+//     if (i != currentIndex) {
+//       StickerItem stickerItem = widget.state.stickerList[i];
+
+//       double listAngle = stickerItem.angle;
+//       Offset listPosition = Offset(
+//         (stickerItem.defaultX).toDIEWidthDp(canWidth: widget.imageSize?.width),
+//         (stickerItem.defaultY).toDIEWidthDp(canWidth: widget.imageSize?.width),
+//       );
+//       Size imageSize = Size(
+//         stickerItem.width.toDIEWidthDp(canWidth: widget.imageSize?.width),
+//         stickerItem.height.toDIEWidthDp(canWidth: widget.imageSize?.width),
+//       );
+
+//       double width = imageSize.width;
+//       double height = imageSize.height;
+//       if (listAngle != 0) {
+//         double w1 = width * (cos(listAngle)) + height * (sin(listAngle));
+//         double w2 = width * (cos(listAngle)) - height * (sin(listAngle));
+//         double h1 = height * (cos(listAngle)) - width * (sin(listAngle));
+//         double h2 = height * (cos(listAngle)) + width * (sin(listAngle));
+
+//         width = max(w1.abs(), w2.abs());
+//         height = max(h1.abs(), h2.abs());
+//       }
+
+//       // Horizontal
+//       double targetXcenter = listPosition.dx;
+//       double targetXright = listPosition.dx + (width / 2) + 2;
+//       double targetXleft = listPosition.dx - (width / 2) + 6;
+
+//       if (listAngle == 0) {
+//         _xAlignment(currentXleft, targetXcenter);
+//         if (angle == 0) _xAlignment(currentXcenter, targetXcenter);
+//         _xAlignment(currentXright, targetXcenter);
+//       }
+//       _xAlignment(currentXleft, targetXleft);
+//       _xAlignment(currentXleft, targetXright);
+
+//       _xAlignment(currentXcenter, targetXleft);
+//       _xAlignment(currentXcenter, targetXright);
+//       _xAlignment(currentXright, targetXleft);
+//       _xAlignment(currentXright, targetXright);
+
+//       // Vertical
+//       double targetYcenter = listPosition.dy;
+//       double targetYbottom = listPosition.dy + (height / 2) + 2;
+//       double targetYtop = listPosition.dy - (height / 2) + 6;
+
+//       if (listAngle == 0) {
+//         _yAlignment(currentYtop, targetYcenter);
+//         if (angle == 0) _yAlignment(currentYcenter, targetYcenter);
+//         _yAlignment(currentYbottom, targetYcenter);
+//       }
+//       _yAlignment(currentYtop, targetYtop);
+//       _yAlignment(currentYtop, targetYbottom);
+//       _yAlignment(currentYcenter, targetYtop);
+//       _yAlignment(currentYcenter, targetYbottom);
+//       _yAlignment(currentYbottom, targetYtop);
+//       _yAlignment(currentYbottom, targetYbottom);
+//     }
+//   }
+// }
+
+// void _xAlignment(double currentXcenter, double targetXcenter) {
+//   return updateAlignment(
+//     current: currentXcenter,
+//     target: targetXcenter,
+//     alignmentThreshold: alignmentThreshold,
+//     onDateSelected: (current) => verticalHighlightLineX = current,
+//   );
+// }
+
+// void _yAlignment(double currentYcenter, double targetYcenter) {
+//   return updateAlignment(
+//     current: currentYcenter,
+//     target: targetYcenter,
+//     vertical: true,
+//     alignmentThreshold: alignmentThreshold,
+//     onDateSelected: (current) => horizontalHighlightLineY = current,
+//   );
+// }
+
+// void updateAlignment({
+//   required double current,
+//   required double target,
+//   bool vertical = false,
+//   required int alignmentThreshold,
+//   required void Function(double) onDateSelected,
+// }) {
+//   if (target.toInt() >= current.toInt() - alignmentThreshold &&
+//       target.toInt() <= current.toInt() + alignmentThreshold) {
+//     if (vertical) {
+//       onDateSelected(current);
+//     } else {
+//       onDateSelected(current);
+//     }
+//     setState(() {});
+//   }
+// }
